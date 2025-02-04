@@ -208,6 +208,10 @@
 			);
 			mainGroup = B097898C2D51EA44001FBE47;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B09789CA2D51F306001FBE47 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B09789962D51EA44001FBE47 /* Products */;
 			projectDirPath = "";
@@ -563,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		B09789CA2D51F306001FBE47 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = B097898D2D51EA44001FBE47 /* Project object */;
 }
