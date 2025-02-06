@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = .lightGray
 
         self.viewModel.fetchAttractions()
+        self.viewModel.fetchNews()
     }
 }
 
