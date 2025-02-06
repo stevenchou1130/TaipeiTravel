@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B0978A502D549885001FBE47 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A4F2D549885001FBE47 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B09789AC2D51EA46001FBE47 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0978A502D549885001FBE47 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,7 @@
 				B09789972D51EA44001FBE47 /* TravelTaipei */,
 				B09789AE2D51EA46001FBE47 /* TravelTaipeiTests */,
 				B09789B82D51EA46001FBE47 /* TravelTaipeiUITests */,
+				B0978A4E2D549885001FBE47 /* Frameworks */,
 				B09789962D51EA44001FBE47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +109,13 @@
 				B09789B52D51EA46001FBE47 /* TravelTaipeiUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B0978A4E2D549885001FBE47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +138,7 @@
 			);
 			name = TravelTaipei;
 			packageProductDependencies = (
+				B0978A4F2D549885001FBE47 /* SnapKit */,
 			);
 			productName = TravelTaipei;
 			productReference = B09789952D51EA44001FBE47 /* TravelTaipei.app */;
@@ -586,6 +600,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B0978A4F2D549885001FBE47 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B097898D2D51EA44001FBE47 /* Project object */;
 }
