@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B0978A502D549885001FBE47 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A4F2D549885001FBE47 /* SnapKit */; };
+		B0978A652D55F14F001FBE47 /* MJRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A642D55F14F001FBE47 /* MJRefresh */; };
+		B0978A672D55F153001FBE47 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A662D55F153001FBE47 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0978A672D55F153001FBE47 /* Kingfisher in Frameworks */,
 				B0978A502D549885001FBE47 /* SnapKit in Frameworks */,
+				B0978A652D55F14F001FBE47 /* MJRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +143,8 @@
 			name = TravelTaipei;
 			packageProductDependencies = (
 				B0978A4F2D549885001FBE47 /* SnapKit */,
+				B0978A642D55F14F001FBE47 /* MJRefresh */,
+				B0978A662D55F153001FBE47 /* Kingfisher */,
 			);
 			productName = TravelTaipei;
 			productReference = B09789952D51EA44001FBE47 /* TravelTaipei.app */;
@@ -225,6 +231,8 @@
 			packageReferences = (
 				B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B09789CA2D51F306001FBE47 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B0978A622D55F130001FBE47 /* XCRemoteSwiftPackageReference "MJRefresh" */,
+				B0978A632D55F13C001FBE47 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B09789962D51EA44001FBE47 /* Products */;
@@ -599,6 +607,22 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		B0978A622D55F130001FBE47 /* XCRemoteSwiftPackageReference "MJRefresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoderMJLee/MJRefresh";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.7.9;
+			};
+		};
+		B0978A632D55F13C001FBE47 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -606,6 +630,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B0978A642D55F14F001FBE47 /* MJRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0978A622D55F130001FBE47 /* XCRemoteSwiftPackageReference "MJRefresh" */;
+			productName = MJRefresh;
+		};
+		B0978A662D55F153001FBE47 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0978A632D55F13C001FBE47 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
