@@ -94,7 +94,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         case .attractions:
             return 100
         case .news:
-            return 100
+            return 150
         }
     }
 
@@ -116,8 +116,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         case .news:
             let cell: MainNewsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let data = self.viewModel.news[indexPath.row]
-            cell.update(with: data)
+            let cellViewModel = MainNewsCellViewModel(news: self.viewModel.news[indexPath.row])
+            cell.update(with: cellViewModel)
             return cell
         }
     }

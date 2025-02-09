@@ -9,9 +9,12 @@ import UIKit
 
 class MainNewsTableViewCell: UITableViewCell {
 
+    var viewModel: MainNewsCellViewModel?
+
     // MARK: - UI Content
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -19,8 +22,10 @@ class MainNewsTableViewCell: UITableViewCell {
 
     lazy var descriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textAlignment = .left
         label.textColor = .black
+        label.numberOfLines = 0
         return label
     }()
 
@@ -37,15 +42,17 @@ class MainNewsTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview().inset(8)
+            make.top.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(12)
             make.height.equalTo(20)
         }
 
         self.contentView.addSubview(self.descriptionLabel)
         self.descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(8)
-            make.leading.trailing.bottom.equalToSuperview().inset(8)
-            make.height.equalTo(40)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview().inset(16)
+            make.height.equalTo(100)
         }
     }
 
@@ -62,8 +69,9 @@ class MainNewsTableViewCell: UITableViewCell {
 // MARK: - Public
 extension MainNewsTableViewCell {
 
-    public func update(with data: News) {
-        self.titleLabel.text = data.title
-        self.descriptionLabel.text = data.description
+    public func update(with viewModel: MainNewsCellViewModel) {
+        self.viewModel = viewModel
+        self.titleLabel.text = viewModel.title
+        self.descriptionLabel.text = viewModel.description
     }
 }
