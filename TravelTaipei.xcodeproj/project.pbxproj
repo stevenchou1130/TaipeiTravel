@@ -10,6 +10,7 @@
 		B0978A502D549885001FBE47 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A4F2D549885001FBE47 /* SnapKit */; };
 		B0978A652D55F14F001FBE47 /* MJRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A642D55F14F001FBE47 /* MJRefresh */; };
 		B0978A672D55F153001FBE47 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B0978A662D55F153001FBE47 /* Kingfisher */; };
+		B0978AC92D5907A9001FBE47 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = B0978AC82D5907A9001FBE47 /* NVActivityIndicatorView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0978AC92D5907A9001FBE47 /* NVActivityIndicatorView in Frameworks */,
 				B0978A672D55F153001FBE47 /* Kingfisher in Frameworks */,
 				B0978A502D549885001FBE47 /* SnapKit in Frameworks */,
 				B0978A652D55F14F001FBE47 /* MJRefresh in Frameworks */,
@@ -145,6 +147,7 @@
 				B0978A4F2D549885001FBE47 /* SnapKit */,
 				B0978A642D55F14F001FBE47 /* MJRefresh */,
 				B0978A662D55F153001FBE47 /* Kingfisher */,
+				B0978AC82D5907A9001FBE47 /* NVActivityIndicatorView */,
 			);
 			productName = TravelTaipei;
 			productReference = B09789952D51EA44001FBE47 /* TravelTaipei.app */;
@@ -230,9 +233,9 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B09789C92D51F2BF001FBE47 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				B09789CA2D51F306001FBE47 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B0978A622D55F130001FBE47 /* XCRemoteSwiftPackageReference "MJRefresh" */,
 				B0978A632D55F13C001FBE47 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B0978AC72D590783001FBE47 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B09789962D51EA44001FBE47 /* Products */;
@@ -599,14 +602,6 @@
 				minimumVersion = 5.7.1;
 			};
 		};
-		B09789CA2D51F306001FBE47 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.10.2;
-			};
-		};
 		B0978A622D55F130001FBE47 /* XCRemoteSwiftPackageReference "MJRefresh" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CoderMJLee/MJRefresh";
@@ -621,6 +616,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 8.2.0;
+			};
+		};
+		B0978AC72D590783001FBE47 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -640,6 +643,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B0978A632D55F13C001FBE47 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		B0978AC82D5907A9001FBE47 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0978AC72D590783001FBE47 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
