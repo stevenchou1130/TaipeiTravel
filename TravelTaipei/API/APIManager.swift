@@ -34,9 +34,10 @@ enum APIContent {
         }
     }
 
-    // TODO: 多國語系
+    // TODO: 印尼文無法讀取
     var lang: String {
-        return "zh-tw"
+        let savedLang = UserDefaults.standard.string(forKey: Constants.LanguageKey)
+        return savedLang ?? Language.zhTW.rawValue
     }
 
     var method: String {

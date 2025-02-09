@@ -5,10 +5,7 @@
 //  Created by Steven on 2025/2/5.
 //
 
-// TODO:
-// 1. API completion
-// 2. binding
-
+import Foundation
 import Combine
 
 enum MainViewContent {
@@ -18,6 +15,14 @@ enum MainViewContent {
 
 class MainViewModel {
 
+    var currentLanguage: Language {
+        if let langCode = UserDefaults.standard.string(forKey: Constants.LanguageKey) {
+            return Language(rawValue: langCode) ?? .zhTW
+        } else {
+            return .zhTW
+        }
+    }
+    
     var currentContent: MainViewContent = .news
 
     // Attractions
@@ -33,6 +38,13 @@ class MainViewModel {
 
 // MARK: - Public
 extension MainViewModel {
+
+    func refresh() {
+        switch self.currentContent {
+        case .attractions: self.fetchAttractions()
+        case .news: self.fetchNews()
+        }
+    }
 
     // Attractions
     func fetchAttractions() {

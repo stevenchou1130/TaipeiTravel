@@ -32,7 +32,7 @@ class MainNewsTableViewCell: UITableViewCell {
 
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.borderWidth = 3
-        self.contentView.layer.borderColor = UIColor.mainColor.cgColor
+        self.contentView.layer.borderColor = UIColor.lmMainColor.cgColor
         self.contentView.layer.masksToBounds = true
 
         self.contentView.addSubview(self.titleLabel)

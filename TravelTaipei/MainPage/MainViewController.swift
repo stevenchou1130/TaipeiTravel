@@ -12,6 +12,7 @@ import Combine
 
 // TODO:
 // 1. Loading indicator
+// 2. 沒資料時的顯示
 
 class MainViewController: UIViewController {
 
@@ -26,29 +27,29 @@ class MainViewController: UIViewController {
         return v
     }()
 
-    lazy var newsBtn: UIButton = {
-        let btn: UIButton = UIButton()
-        btn.isSelected = true
-        btn.backgroundColor = .mainColor
-        btn.setTitle("最新消息", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(.black, for: .selected)
-        btn.setTitleFont(UIFont.systemFont(ofSize: 16))
-        btn.applyRoundedStyle(borderColor: .white)
-        btn.addTarget(self, action: #selector(newsBtnTapped), for: .touchUpInside)
-        return btn
-    }()
-
     lazy var attractionsBtn: UIButton = {
         let btn: UIButton = UIButton()
         btn.isSelected = false
-        btn.backgroundColor = .mainColor
-        btn.setTitle("旅遊景點", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(.black, for: .selected)
+        btn.backgroundColor = .lmMainColor
+        btn.setTitle(self.viewModel.currentLanguage.attraction, for: .normal)
+        btn.setTitleColor(.lmTitleColor, for: .normal)
+        btn.setTitleColor(.lmTitleSelectedColor, for: .selected)
         btn.setTitleFont(UIFont.systemFont(ofSize: 16))
-        btn.applyRoundedStyle(borderColor: .white)
+        btn.applyRoundedStyle(borderColor: .lmBorderColor)
         btn.addTarget(self, action: #selector(attractionsBtnTapped), for: .touchUpInside)
+        return btn
+    }()
+
+    lazy var newsBtn: UIButton = {
+        let btn: UIButton = UIButton()
+        btn.isSelected = true
+        btn.backgroundColor = .lmMainColor
+        btn.setTitle(self.viewModel.currentLanguage.news, for: .normal)
+        btn.setTitleColor(.lmTitleColor, for: .normal)
+        btn.setTitleColor(.lmTitleSelectedColor, for: .selected)
+        btn.setTitleFont(UIFont.systemFont(ofSize: 16))
+        btn.applyRoundedStyle(borderColor: .lmBorderColor)
+        btn.addTarget(self, action: #selector(newsBtnTapped), for: .touchUpInside)
         return btn
     }()
 
@@ -60,6 +61,13 @@ class MainViewController: UIViewController {
         tv.separatorStyle = .none
         tv.register(MainNewsTableViewCell.self, forCellReuseIdentifier: MainNewsTableViewCell.reuseCellID)
         tv.register(MainAttractionsTableViewCell.self, forCellReuseIdentifier: MainAttractionsTableViewCell.reuseCellID)
+        // Pull down refresh header
+        let header = MJRefreshNormalHeader { [weak self] in
+            self?.viewModel.refresh()
+        }
+        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
+        tv.mj_header = header
         return tv
     }()
 
@@ -69,28 +77,8 @@ class MainViewController: UIViewController {
 
         self.configNavBar()
         self.configUI()
-        self.addRefreshHeader()
-
         self.bindViewModel()
-        self.viewModel.fetchNews()
-    }
-
-    private func bindViewModel() {
-        viewModel.$attractions
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.tableView.mj_header?.endRefreshing()
-                self?.tableView.reloadData()
-            }
-            .store(in: &cancellables)
-
-        viewModel.$news
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.tableView.mj_header?.endRefreshing()
-                self?.tableView.reloadData()
-            }
-            .store(in: &cancellables)
+        self.viewModel.refresh()
     }
 }
 
@@ -98,7 +86,6 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         switch self.viewModel.currentContent {
         case .attractions:
             return 100
@@ -108,7 +95,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         switch self.viewModel.currentContent {
         case .attractions:
             return self.viewModel.attractions.count
@@ -118,7 +104,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         switch self.viewModel.currentContent {
         case .attractions:
             let cell: MainAttractionsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
@@ -167,7 +152,7 @@ extension MainViewController {
             sender.isSelected = true
             self.attractionsBtn.isSelected = false
             self.viewModel.currentContent = .news
-            self.viewModel.fetchNews()
+            self.viewModel.refresh()
         }
     }
 
@@ -178,8 +163,20 @@ extension MainViewController {
             sender.isSelected = true
             self.newsBtn.isSelected = false
             self.viewModel.currentContent = .attractions
-            self.viewModel.fetchAttractions()
+            self.viewModel.refresh()
         }
+    }
+
+    @objc func langBtnTapped() {
+        let alert = UIAlertController(title: self.viewModel.currentLanguage.selectLanguage, message: nil, preferredStyle: .actionSheet)
+        for language in Language.allCases {
+            let action = UIAlertAction(title: language.name, style: .default) { [weak self] _ in
+                self?.changeLanguage(to: language)
+            }
+            alert.addAction(action)
+        }
+        alert.addAction(UIAlertAction(title: self.viewModel.currentLanguage.cancel, style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -194,16 +191,20 @@ extension MainViewController {
     private func configNavBar() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .mainColor
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.backgroundColor = .lmMainColor
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.lmTitleColor]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
-        self.navigationItem.title = "悠遊台北"
+        self.navigationItem.title = self.viewModel.currentLanguage.title
+
+        let langBtnImage = UIImage(systemName: "network")
+        let langBtn = UIBarButtonItem(image: langBtnImage, style: .plain, target: self, action: #selector(langBtnTapped))
+        langBtn.tintColor = .lmTitleColor
+        navigationItem.rightBarButtonItem = langBtn
     }
 
     private func configUI() {
-
         self.view.backgroundColor = .white
 
         self.view.addSubview(self.selectionBtnsView)
@@ -217,15 +218,15 @@ extension MainViewController {
         self.selectionBtnsView.addSubview(self.newsBtn)
         self.newsBtn.snp.makeConstraints { make in
             make.centerY.equalTo(self.selectionBtnsView)
-            make.leading.equalTo(self.selectionBtnsView.snp.leading).offset(10)
+            make.leading.equalTo(self.selectionBtnsView.snp.leading).offset(40)
             make.height.equalTo(30)
-            make.width.equalTo(80)
+            make.width.equalTo(140)
         }
 
         self.selectionBtnsView.addSubview(self.attractionsBtn)
         self.attractionsBtn.snp.makeConstraints { make in
             make.centerY.equalTo(self.selectionBtnsView)
-            make.leading.equalTo(self.newsBtn.snp.trailing).offset(10)
+            make.trailing.equalTo(self.selectionBtnsView.snp.trailing).offset(-40)
             make.height.width.equalTo(self.newsBtn)
         }
 
@@ -236,18 +237,34 @@ extension MainViewController {
         }
     }
 
-    private func addRefreshHeader() {
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
-            guard let self = self else {
-                print("ERROR: Can not access object")
-                return
+    private func bindViewModel() {
+        self.viewModel.$attractions
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.mj_header?.endRefreshing()
+                self?.tableView.reloadData()
             }
-            switch self.viewModel.currentContent {
-            case .attractions:
-                self.viewModel.fetchAttractions()
-            case .news:
-                self.viewModel.fetchNews()
+            .store(in: &cancellables)
+
+        self.viewModel.$news
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.mj_header?.endRefreshing()
+                self?.tableView.reloadData()
             }
-        })
+            .store(in: &cancellables)
+    }
+
+    private func changeLanguage(to language: Language) {
+        // Save to user default
+        UserDefaults.standard.set(language.rawValue, forKey: Constants.LanguageKey)
+
+        // Update UI
+        self.navigationItem.title = language.title
+        self.attractionsBtn.setTitle(language.attraction, for: .normal)
+        self.newsBtn.setTitle(language.news, for: .normal)
+
+        // Reload data
+        self.viewModel.refresh()
     }
 }
