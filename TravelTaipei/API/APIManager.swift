@@ -84,6 +84,7 @@ class APIManager {
 
     static let shared = APIManager()
 
+    // TODO: Cache
     func request<T: Codable>(apiContent: APIContent,
                              model: T.Type,
                              completion: @escaping (Result<T, APIError>) -> Void) {

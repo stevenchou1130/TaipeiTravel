@@ -7,11 +7,17 @@
 
 import UIKit
 import SnapKit
+import MJRefresh
+import Combine
+
+// TODO:
+// 1. Loading indicator
 
 class MainViewController: UIViewController {
 
     // MARK: - Property
     private var viewModel: MainViewModel = MainViewModel()
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - UI Content
     lazy var selectionBtnsView: UIView = {
@@ -63,8 +69,28 @@ class MainViewController: UIViewController {
 
         self.configNavBar()
         self.configUI()
+        self.addRefreshHeader()
 
-        self.fetchNews()
+        self.bindViewModel()
+        self.viewModel.fetchNews()
+    }
+
+    private func bindViewModel() {
+        viewModel.$attractions
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.mj_header?.endRefreshing()
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+
+        viewModel.$news
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.mj_header?.endRefreshing()
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -73,30 +99,35 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return 100
+        switch self.viewModel.currentContent {
+        case .attractions:
+            return 100
+        case .news:
+            return 100
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         switch self.viewModel.currentContent {
-        case .news:
-            return self.viewModel.news.count
         case .attractions:
             return self.viewModel.attractions.count
+        case .news:
+            return self.viewModel.news.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         switch self.viewModel.currentContent {
-        case .news:
-            let cell: MainNewsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let data = self.viewModel.news[indexPath.row]
-            cell.update(with: data)
-            return cell
         case .attractions:
             let cell: MainAttractionsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             let data = self.viewModel.attractions[indexPath.row]
+            cell.update(with: data)
+            return cell
+        case .news:
+            let cell: MainNewsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            let data = self.viewModel.news[indexPath.row]
             cell.update(with: data)
             return cell
         }
@@ -105,23 +136,22 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: Push to detail page
         switch self.viewModel.currentContent {
-        case .news:
-            print("=== didSelectRowAt news: \(indexPath)")
         case .attractions:
             print("=== didSelectRowAt attractions: \(indexPath)")
+        case .news:
+            print("=== didSelectRowAt news: \(indexPath)")
         }
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // TODO: Load more
         switch self.viewModel.currentContent {
-        case .news:
-            if indexPath.row == self.viewModel.news.count - 10 {
-                print("=== Load more news")
-            }
         case .attractions:
             if indexPath.row == self.viewModel.attractions.count - 10 {
-                print("=== Load more attractions")
+                self.viewModel.fetchNextAttractions()
+            }
+        case .news:
+            if indexPath.row == self.viewModel.news.count - 10 {
+                self.viewModel.fetchNextNews()
             }
         }
     }
@@ -137,7 +167,7 @@ extension MainViewController {
             sender.isSelected = true
             self.attractionsBtn.isSelected = false
             self.viewModel.currentContent = .news
-            self.fetchNews()
+            self.viewModel.fetchNews()
         }
     }
 
@@ -148,23 +178,7 @@ extension MainViewController {
             sender.isSelected = true
             self.newsBtn.isSelected = false
             self.viewModel.currentContent = .attractions
-            self.fetchAttractions()
-        }
-    }
-
-    func fetchNews() {
-        self.viewModel.fetchNews { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-
-    func fetchAttractions() {
-        self.viewModel.fetchAttractions { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self.viewModel.fetchAttractions()
         }
     }
 }
@@ -220,5 +234,20 @@ extension MainViewController {
             make.top.equalTo(self.selectionBtnsView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+
+    private func addRefreshHeader() {
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            guard let self = self else {
+                print("ERROR: Can not access object")
+                return
+            }
+            switch self.viewModel.currentContent {
+            case .attractions:
+                self.viewModel.fetchAttractions()
+            case .news:
+                self.viewModel.fetchNews()
+            }
+        })
     }
 }
