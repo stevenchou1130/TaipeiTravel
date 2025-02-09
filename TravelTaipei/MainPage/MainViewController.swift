@@ -9,10 +9,7 @@ import UIKit
 import SnapKit
 import MJRefresh
 import Combine
-
-// TODO:
-// 1. Loading indicator
-// 2. 沒資料時的顯示
+import NVActivityIndicatorView
 
 class MainViewController: UIViewController {
 
@@ -63,12 +60,19 @@ class MainViewController: UIViewController {
         tv.register(MainAttractionsTableViewCell.self, forCellReuseIdentifier: MainAttractionsTableViewCell.reuseCellID)
         // Pull down refresh header
         let header = MJRefreshNormalHeader { [weak self] in
-            self?.viewModel.refresh()
+            self?.reload()
         }
+        header.loadingView?.color = .clear
         header.lastUpdatedTimeLabel?.isHidden = true
         header.stateLabel?.isHidden = true
         tv.mj_header = header
         return tv
+    }()
+
+    lazy var indicator: NVActivityIndicatorView = {
+        return NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40),
+                                       type: .lineSpinFadeLoader,
+                                       color: .lightGray)
     }()
 
     // MARK: - Life Cycle
@@ -78,7 +82,7 @@ class MainViewController: UIViewController {
         self.configNavBar()
         self.configUI()
         self.bindViewModel()
-        self.viewModel.refresh()
+        self.reload()
     }
 }
 
@@ -152,7 +156,7 @@ extension MainViewController {
             sender.isSelected = true
             self.attractionsBtn.isSelected = false
             self.viewModel.currentContent = .news
-            self.viewModel.refresh()
+            self.reload()
         }
     }
 
@@ -163,7 +167,7 @@ extension MainViewController {
             sender.isSelected = true
             self.newsBtn.isSelected = false
             self.viewModel.currentContent = .attractions
-            self.viewModel.refresh()
+            self.reload()
         }
     }
 
@@ -235,6 +239,11 @@ extension MainViewController {
             make.top.equalTo(self.selectionBtnsView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+
+        self.view.addSubview(self.indicator)
+        self.indicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
 
     private func bindViewModel() {
@@ -242,6 +251,9 @@ extension MainViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.tableView.mj_header?.endRefreshing()
+                if self?.viewModel.attractions.count != 0 {
+                    self?.indicator.stopAnimating()
+                }
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
@@ -250,9 +262,17 @@ extension MainViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.tableView.mj_header?.endRefreshing()
+                if self?.viewModel.news.count != 0 {
+                    self?.indicator.stopAnimating()
+                }
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
+    }
+
+    private func reload() {
+        self.indicator.startAnimating()
+        self.viewModel.reload()
     }
 
     private func changeLanguage(to language: Language) {
@@ -265,6 +285,6 @@ extension MainViewController {
         self.newsBtn.setTitle(language.news, for: .normal)
 
         // Reload data
-        self.viewModel.refresh()
+        self.reload()
     }
 }

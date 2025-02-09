@@ -19,7 +19,7 @@ enum Language: String, CaseIterable {
     var name: String {
         switch self {
         case .zhTW:
-            return "正體中文"
+            return "繁體中文"
         case .zhCN:
             return "简体中文"
         case .en:

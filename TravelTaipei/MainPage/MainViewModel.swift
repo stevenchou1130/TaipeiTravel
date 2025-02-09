@@ -39,7 +39,7 @@ class MainViewModel {
 // MARK: - Public
 extension MainViewModel {
 
-    func refresh() {
+    func reload() {
         switch self.currentContent {
         case .attractions: self.fetchAttractions()
         case .news: self.fetchNews()
