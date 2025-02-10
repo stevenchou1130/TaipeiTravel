@@ -34,26 +34,7 @@ class MainNewsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.selectionStyle = .none
-
-        self.contentView.layer.cornerRadius = 10
-        self.contentView.layer.borderWidth = 3
-        self.contentView.layer.borderColor = UIColor.lmMainColor.cgColor
-        self.contentView.layer.masksToBounds = true
-
-        self.contentView.addSubview(self.titleLabel)
-        self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(20)
-        }
-
-        self.contentView.addSubview(self.descriptionLabel)
-        self.descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(100)
-        }
+        self.configUI()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -63,6 +44,8 @@ class MainNewsTableViewCell: UITableViewCell {
     // MARK: - Life Cycle
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        self.addBorder()
     }
 }
 
@@ -73,5 +56,40 @@ extension MainNewsTableViewCell {
         self.viewModel = viewModel
         self.titleLabel.text = viewModel.title
         self.descriptionLabel.text = viewModel.description
+    }
+}
+
+
+// MARK: - Private
+extension MainNewsTableViewCell {
+
+    private func configUI() {
+        self.contentView.addSubview(self.titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+
+        self.contentView.addSubview(self.descriptionLabel)
+        self.descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalTo(self.titleLabel)
+            make.bottom.equalToSuperview().inset(16)
+            make.height.equalTo(100)
+        }
+    }
+
+    private func addBorder() {
+        self.layer.sublayers?.first(where: { $0.name == "shapeLayer" })?.removeFromSuperlayer()
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.name = "shapeLayer"
+        let path = UIBezierPath(roundedRect: self.bounds.insetBy(dx: 10, dy: 10),
+                                cornerRadius: 10)
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = UIColor.lmMainColor.cgColor
+        shapeLayer.lineWidth = 2
+        self.layer.addSublayer(shapeLayer)
     }
 }
