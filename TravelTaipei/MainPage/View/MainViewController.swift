@@ -123,12 +123,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: Push to detail page
+
         switch self.viewModel.currentContent {
         case .attractions:
+            // TODO: Push to detail page
             print("=== didSelectRowAt attractions: \(indexPath)")
         case .news:
-            print("=== didSelectRowAt news: \(indexPath)")
+            let newsViewModel = NewsViewModel(news: self.viewModel.news[indexPath.row])
+            let vc = NewsViewController(viewModel: newsViewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -202,10 +205,10 @@ extension MainViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         self.navigationItem.title = self.viewModel.currentLanguage.title
 
+        self.navigationController?.navigationBar.tintColor = .white
         let langBtnImage = UIImage(systemName: "network")
         let langBtn = UIBarButtonItem(image: langBtnImage, style: .plain, target: self, action: #selector(langBtnTapped))
-        langBtn.tintColor = .lmTitleColor
-        navigationItem.rightBarButtonItem = langBtn
+        self.navigationItem.rightBarButtonItem = langBtn
     }
 
     private func configUI() {
