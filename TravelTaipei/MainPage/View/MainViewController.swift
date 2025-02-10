@@ -92,7 +92,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch self.viewModel.currentContent {
         case .attractions:
-            return 100
+            return 150
         case .news:
             return 150
         }
@@ -111,8 +111,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         switch self.viewModel.currentContent {
         case .attractions:
             let cell: MainAttractionsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            let data = self.viewModel.attractions[indexPath.row]
-            cell.update(with: data)
+            let cellViewModel = MainAttractionCellViewModel(attraction: self.viewModel.attractions[indexPath.row])
+            cell.update(with: cellViewModel)
             return cell
         case .news:
             let cell: MainNewsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
