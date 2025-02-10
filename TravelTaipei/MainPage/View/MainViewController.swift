@@ -126,8 +126,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
         switch self.viewModel.currentContent {
         case .attractions:
-            // TODO: Push to detail page
-            print("=== didSelectRowAt attractions: \(indexPath)")
+            // DOING: Push to detail page
+            let attractionViewModel = AttractionViewModel(attraction: self.viewModel.attractions[indexPath.row])
+            let vc = AttractionViewController(viewModel: attractionViewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
         case .news:
             let newsViewModel = NewsViewModel(news: self.viewModel.news[indexPath.row])
             let vc = NewsViewController(viewModel: newsViewModel)

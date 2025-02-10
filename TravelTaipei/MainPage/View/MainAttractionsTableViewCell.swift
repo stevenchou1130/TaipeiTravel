@@ -71,7 +71,7 @@ extension MainAttractionsTableViewCell {
 
     public func update(with viewModel: MainAttractionCellViewModel) {
         self.viewModel = viewModel
-        self.imgView.kf.setImage(with: viewModel.imgURL)
+        self.imgView.loadImage(with: viewModel.imgURL)
         self.nameLabel.text = viewModel.name
         self.introductionLabel.text = viewModel.introduction
     }
