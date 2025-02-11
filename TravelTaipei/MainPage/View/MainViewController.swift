@@ -27,12 +27,12 @@ class MainViewController: UIViewController {
     lazy var attractionsBtn: UIButton = {
         let btn: UIButton = UIButton()
         btn.isSelected = false
-        btn.backgroundColor = .lmMainColor
+        btn.backgroundColor = .mainColor
         btn.setTitle(self.viewModel.currentLanguage.attraction, for: .normal)
-        btn.setTitleColor(.lmTitleColor, for: .normal)
-        btn.setTitleColor(.lmTitleSelectedColor, for: .selected)
+        btn.setTitleColor(.categoryBtnTitleColor, for: .normal)
+        btn.setTitleColor(.categoryBtnSelectedTitleColor, for: .selected)
         btn.setTitleFont(UIFont.systemFont(ofSize: 16))
-        btn.applyRoundedStyle(borderColor: .lmBorderColor)
+        btn.applyRoundedStyle(borderColor: .categoryBtnBorderColor)
         btn.addTarget(self, action: #selector(attractionsBtnTapped), for: .touchUpInside)
         return btn
     }()
@@ -40,12 +40,12 @@ class MainViewController: UIViewController {
     lazy var newsBtn: UIButton = {
         let btn: UIButton = UIButton()
         btn.isSelected = true
-        btn.backgroundColor = .lmMainColor
+        btn.backgroundColor = .mainColor
         btn.setTitle(self.viewModel.currentLanguage.news, for: .normal)
-        btn.setTitleColor(.lmTitleColor, for: .normal)
-        btn.setTitleColor(.lmTitleSelectedColor, for: .selected)
+        btn.setTitleColor(.categoryBtnTitleColor, for: .normal)
+        btn.setTitleColor(.categoryBtnSelectedTitleColor, for: .selected)
         btn.setTitleFont(UIFont.systemFont(ofSize: 16))
-        btn.applyRoundedStyle(borderColor: .lmBorderColor)
+        btn.applyRoundedStyle(borderColor: .categoryBtnBorderColor)
         btn.addTarget(self, action: #selector(newsBtnTapped), for: .touchUpInside)
         return btn
     }()
@@ -199,21 +199,20 @@ extension MainViewController {
     private func configNavBar() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .lmMainColor
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.lmTitleColor]
+        appearance.backgroundColor = .mainColor
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.navBarTintColor]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         self.navigationItem.title = self.viewModel.currentLanguage.title
 
-        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .navBarTintColor
         let langBtnImage = UIImage(systemName: "network")
         let langBtn = UIBarButtonItem(image: langBtnImage, style: .plain, target: self, action: #selector(langBtnTapped))
         self.navigationItem.rightBarButtonItem = langBtn
     }
 
     private func configUI() {
-        self.view.backgroundColor = .white
 
         self.view.addSubview(self.selectionBtnsView)
         self.selectionBtnsView.snp.makeConstraints { make in

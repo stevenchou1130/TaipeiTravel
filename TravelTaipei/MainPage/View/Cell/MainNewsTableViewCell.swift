@@ -16,7 +16,7 @@ class MainNewsTableViewCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .textColor
         return label
     }()
 
@@ -24,7 +24,7 @@ class MainNewsTableViewCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .textColor
         label.numberOfLines = 0
         return label
     }()
@@ -88,7 +88,7 @@ extension MainNewsTableViewCell {
                                 cornerRadius: 10)
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.lmMainColor.cgColor
+        shapeLayer.strokeColor = UIColor.mainColor.cgColor
         shapeLayer.lineWidth = 2
         self.layer.addSublayer(shapeLayer)
     }

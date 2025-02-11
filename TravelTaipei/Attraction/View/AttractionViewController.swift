@@ -114,8 +114,6 @@ extension AttractionViewController {
     }
 
     private func configUI() {
-        self.view.backgroundColor = .white
-
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()

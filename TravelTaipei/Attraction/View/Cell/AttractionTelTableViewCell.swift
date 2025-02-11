@@ -15,7 +15,7 @@ class AttractionTelTableViewCell: UITableViewCell {
     lazy var telLabel: UILabel = {
         let label = UILabel()
         label.text = "聯絡電話"
-        label.textColor = .lmMainColor
+        label.textColor = .mainColor
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0
         return label
@@ -60,9 +60,6 @@ extension AttractionTelTableViewCell {
 extension AttractionTelTableViewCell {
 
     private func configUI() {
-        // TODO: Dark mode
-        self.contentView.backgroundColor = .white
-
         self.contentView.addSubview(self.telLabel)
         self.telLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(12)
@@ -77,7 +74,7 @@ extension AttractionTelTableViewCell {
                                 cornerRadius: 10)
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.lmMainColor.cgColor
+        shapeLayer.strokeColor = UIColor.mainColor.cgColor
         shapeLayer.lineWidth = 2
         self.layer.addSublayer(shapeLayer)
     }

@@ -15,7 +15,7 @@ class AttractionIntroTableViewCell: UITableViewCell {
     lazy var introLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = .textColor
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0
         return label
@@ -60,9 +60,6 @@ extension AttractionIntroTableViewCell {
 extension AttractionIntroTableViewCell {
 
     private func configUI() {
-        // TODO: Dark mode
-        self.contentView.backgroundColor = .white
-
         self.contentView.addSubview(self.introLabel)
         self.introLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(12)
@@ -77,7 +74,7 @@ extension AttractionIntroTableViewCell {
                                 cornerRadius: 10)
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.lmMainColor.cgColor
+        shapeLayer.strokeColor = UIColor.mainColor.cgColor
         shapeLayer.lineWidth = 2
         self.layer.addSublayer(shapeLayer)
     }

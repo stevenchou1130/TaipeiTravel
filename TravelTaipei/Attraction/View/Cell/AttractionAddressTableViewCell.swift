@@ -15,7 +15,7 @@ class AttractionAddressTableViewCell: UITableViewCell {
     lazy var addressLabel: UILabel = {
         let label = UILabel()
         label.text = "地址"
-        label.textColor = .lmMainColor
+        label.textColor = .mainColor
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0
         return label
@@ -60,9 +60,6 @@ extension AttractionAddressTableViewCell {
 extension AttractionAddressTableViewCell {
 
     private func configUI() {
-        // TODO: Dark mode
-        self.contentView.backgroundColor = .white
-
         self.contentView.addSubview(self.addressLabel)
         self.addressLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(12)
@@ -77,7 +74,7 @@ extension AttractionAddressTableViewCell {
                                 cornerRadius: 10)
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.lmMainColor.cgColor
+        shapeLayer.strokeColor = UIColor.mainColor.cgColor
         shapeLayer.lineWidth = 2
         self.layer.addSublayer(shapeLayer)
     }

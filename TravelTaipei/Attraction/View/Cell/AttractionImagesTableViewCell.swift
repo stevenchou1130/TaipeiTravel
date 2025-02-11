@@ -98,9 +98,6 @@ extension AttractionImagesTableViewCell {
 extension AttractionImagesTableViewCell {
 
     private func configUI() {
-        // TODO: Dark mode
-        self.contentView.backgroundColor = .white
-
         self.contentView.addSubview(self.scrollView)
         self.scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
