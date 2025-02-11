@@ -11,7 +11,7 @@ class AttractionViewModel {
 
     private var attraction: Attraction
 
-    var currentLanguage : Language {
+    var currentLanguage: Language {
         if let langCode = UserDefaults.standard.string(forKey: Constants.LanguageKey) {
             return Language(rawValue: langCode) ?? .zhTW
         } else {
@@ -21,6 +21,11 @@ class AttractionViewModel {
 
     var images: [Image] {
         return self.attraction.images
+    }
+
+    var openTime: String {
+        let title = self.currentLanguage.openTime
+        return "\(title): \(self.attraction.openTime)"
     }
 
     init(attraction: Attraction) {

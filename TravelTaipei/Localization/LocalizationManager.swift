@@ -153,4 +153,96 @@ enum Language: String, CaseIterable {
             return "Hủy"
         }
     }
+
+    var openTime: String {
+        switch self {
+        case .zhTW:
+            return "營業時間"
+        case .zhCN:
+            return "营业时间"
+        case .en:
+            return "Business Hours"
+        case .ja:
+            return "営業時間"
+        case .ko:
+            return "영업 시간"
+        case .es:
+            return "Horario de atención"
+        case .id:
+            return "Jam Buka"
+        case .th:
+            return "เวลาทำการ"
+        case .vi:
+            return "Giờ mở cửa"
+        }
+    }
+
+    var address: String {
+        switch self {
+        case .zhTW:
+            return "地址"
+        case .zhCN:
+            return "地址"
+        case .en:
+            return "Address"
+        case .ja:
+            return "住所"
+        case .ko:
+            return "주소"
+        case .es:
+            return "Dirección"
+        case .id:
+            return "Alamat"
+        case .th:
+            return "ที่อยู่"
+        case .vi:
+            return "Địa chỉ"
+        }
+    }
+
+    var tel: String {
+        switch self {
+        case .zhTW:
+            return "聯絡電話"
+        case .zhCN:
+            return "联系电话"
+        case .en:
+            return "Contact Number"
+        case .ja:
+            return "電話番号"
+        case .ko:
+            return "전화번호"
+        case .es:
+            return "Número de teléfono"
+        case .id:
+            return "Nomor Telepon"
+        case .th:
+            return "เบอร์โทรศัพท์"
+        case .vi:
+            return "Số điện thoại"
+        }
+    }
+
+    var url: String {
+        switch self {
+        case .zhTW:
+            return "網址"
+        case .zhCN:
+            return "网址"
+        case .en:
+            return "Website"
+        case .ja:
+            return "ウェブサイト"
+        case .ko:
+            return "웹사이트"
+        case .es:
+            return "Sitio web"
+        case .id:
+            return "Situs Web"
+        case .th:
+            return "เว็บไซต์"
+        case .vi:
+            return "Trang web"
+        }
+    }
 }

@@ -8,11 +8,11 @@
 import UIKit
 
 import SnapKit
-import NVActivityIndicatorView
 
+// DOING
 enum AttractionCellType: Int, CaseIterable {
-    case images = 0
-//    case openTime
+    case images
+    case openTime
 //    case address
 //    case tel
 //    case url
@@ -21,18 +21,21 @@ enum AttractionCellType: Int, CaseIterable {
     var cellClass: UITableViewCell.Type {
         switch self {
         case .images: return AttractionImagesTableViewCell.self
+        case .openTime: return AttractionOpenTimeTableViewCell.self
         }
     }
 
     var reuseCellID: String {
         switch self {
         case .images: return AttractionImagesTableViewCell.reuseCellID
+        case .openTime: return AttractionOpenTimeTableViewCell.reuseCellID
         }
     }
 
     var cellHeight: CGFloat {
         switch self {
         case .images: return 300
+        case .openTime: return 50
         }
     }
 }
@@ -126,6 +129,10 @@ extension AttractionViewController: UITableViewDataSource, UITableViewDelegate {
             let cell: AttractionImagesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.reset()
             cell.update(with: self.viewModel.images)
+            return cell
+        case .openTime:
+            let cell: AttractionOpenTimeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.update(with: self.viewModel.openTime)
             return cell
         }
     }

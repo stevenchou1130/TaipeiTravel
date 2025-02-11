@@ -11,7 +11,7 @@ class NewsViewModel {
 
     private var news: News
 
-    var currentLanguage : Language {
+    var currentLanguage: Language {
         if let langCode = UserDefaults.standard.string(forKey: Constants.LanguageKey) {
             return Language(rawValue: langCode) ?? .zhTW
         } else {

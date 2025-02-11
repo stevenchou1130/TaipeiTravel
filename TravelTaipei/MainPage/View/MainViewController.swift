@@ -126,7 +126,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
         switch self.viewModel.currentContent {
         case .attractions:
-            // DOING: Push to detail page
             let attractionViewModel = AttractionViewModel(attraction: self.viewModel.attractions[indexPath.row])
             let vc = AttractionViewController(viewModel: attractionViewModel)
             self.navigationController?.pushViewController(vc, animated: true)
