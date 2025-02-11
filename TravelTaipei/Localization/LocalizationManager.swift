@@ -245,4 +245,73 @@ enum Language: String, CaseIterable {
             return "Trang web"
         }
     }
+
+    var error: String {
+        switch self {
+        case .zhTW:
+            return "錯誤"
+        case .zhCN:
+            return "错误"
+        case .en:
+            return "Error"
+        case .ja:
+            return "エラー"
+        case .ko:
+            return "오류"
+        case .es:
+            return "Error"
+        case .id:
+            return "Kesalahan"
+        case .th:
+            return "ข้อผิดพลาด"
+        case .vi:
+            return "Lỗi"
+        }
+    }
+
+    var invalidURL: String {
+        switch self {
+        case .zhTW:
+            return "無效的網址"
+        case .zhCN:
+            return "无效的网址"
+        case .en:
+            return "Invalid URL"
+        case .ja:
+            return "無効なURL"
+        case .ko:
+            return "유효하지 않은 URL"
+        case .es:
+            return "URL no válida"
+        case .id:
+            return "URL tidak valid"
+        case .th:
+            return "URL ไม่ถูกต้อง"
+        case .vi:
+            return "URL không hợp lệ"
+        }
+    }
+    
+    var ok: String {
+        switch self {
+        case .zhTW:
+            return "好的"
+        case .zhCN:
+            return "好的"
+        case .en:
+            return "Ok"
+        case .ja:
+            return "了解"
+        case .ko:
+            return "확인"
+        case .es:
+            return "Ok"
+        case .id:
+            return "Ok"
+        case .th:
+            return "ตกลง"
+        case .vi:
+            return "Ok"
+        }
+    }
 }

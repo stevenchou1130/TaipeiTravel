@@ -59,15 +59,8 @@ extension AttractionWebViewController {
         if let url = self.viewModel.url {
             self.webView.load(URLRequest(url: url))
         } else {
-            self.showErrorAlert()
+            self.showInvalidUrlErrorAlert()
         }
-    }
-
-    // TODO: 多國語系
-    private func showErrorAlert() {
-        let alert = UIAlertController(title: "Error", message: "Invalid URL", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
 }
 
@@ -108,6 +101,6 @@ extension AttractionWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.indicator.stopAnimating()
-        self.showErrorAlert()
+        self.showInvalidUrlErrorAlert()
     }
 }
