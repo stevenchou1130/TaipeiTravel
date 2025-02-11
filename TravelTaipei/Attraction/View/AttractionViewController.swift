@@ -14,7 +14,7 @@ enum AttractionCellType: Int, CaseIterable {
     case images
     case openTime
     case address
-//    case tel
+    case tel
 //    case url
 //    case introduction
 
@@ -23,6 +23,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .images: return AttractionImagesTableViewCell.self
         case .openTime: return AttractionOpenTimeTableViewCell.self
         case .address: return AttractionAddressTableViewCell.self
+        case .tel: return AttractionTelTableViewCell.self
         }
     }
 
@@ -31,6 +32,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .images: return AttractionImagesTableViewCell.reuseCellID
         case .openTime: return AttractionOpenTimeTableViewCell.reuseCellID
         case .address: return AttractionAddressTableViewCell.reuseCellID
+        case .tel: return AttractionTelTableViewCell.reuseCellID
         }
     }
 
@@ -39,6 +41,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .images: return 300
         case .openTime: return UITableView.automaticDimension
         case .address: return UITableView.automaticDimension
+        case .tel: return UITableView.automaticDimension
         }
     }
 }
@@ -140,6 +143,10 @@ extension AttractionViewController: UITableViewDataSource, UITableViewDelegate {
         case .address:
             let cell: AttractionAddressTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.update(with: self.viewModel.address)
+            return cell
+        case .tel:
+            let cell: AttractionTelTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.update(with: self.viewModel.tel)
             return cell
         }
     }
