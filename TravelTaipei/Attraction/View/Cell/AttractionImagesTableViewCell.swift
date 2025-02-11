@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: 轉向照片跑掉
 class AttractionImagesTableViewCell: UITableViewCell {
 
     // MARK: - Property

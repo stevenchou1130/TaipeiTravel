@@ -90,6 +90,9 @@ class AttractionViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
