@@ -126,12 +126,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
         switch self.viewModel.currentContent {
         case .attractions:
-            let attractionViewModel = AttractionViewModel(attraction: self.viewModel.attractions[indexPath.row])
-            let vc = AttractionViewController(viewModel: attractionViewModel)
+            let viewModel = AttractionViewModel(attraction: self.viewModel.attractions[indexPath.row])
+            let vc = AttractionViewController(viewModel: viewModel)
             self.navigationController?.pushViewController(vc, animated: true)
         case .news:
-            let newsViewModel = NewsViewModel(news: self.viewModel.news[indexPath.row])
-            let vc = NewsViewController(viewModel: newsViewModel)
+            let viewModel = NewsViewModel(news: self.viewModel.news[indexPath.row])
+            let vc = NewsViewController(viewModel: viewModel)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

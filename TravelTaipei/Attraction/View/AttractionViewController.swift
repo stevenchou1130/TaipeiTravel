@@ -9,13 +9,12 @@ import UIKit
 
 import SnapKit
 
-// DOING
 enum AttractionCellType: Int, CaseIterable {
     case images
     case openTime
     case address
     case tel
-//    case url
+    case url
     case introduction
 
     var cellClass: UITableViewCell.Type {
@@ -24,6 +23,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .openTime: return AttractionOpenTimeTableViewCell.self
         case .address: return AttractionAddressTableViewCell.self
         case .tel: return AttractionTelTableViewCell.self
+        case .url: return AttractionUrlTableViewCell.self
         case .introduction: return AttractionIntroTableViewCell.self
         }
     }
@@ -34,6 +34,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .openTime: return AttractionOpenTimeTableViewCell.reuseCellID
         case .address: return AttractionAddressTableViewCell.reuseCellID
         case .tel: return AttractionTelTableViewCell.reuseCellID
+        case .url: return AttractionUrlTableViewCell.reuseCellID
         case .introduction: return AttractionIntroTableViewCell.reuseCellID
         }
     }
@@ -44,6 +45,7 @@ enum AttractionCellType: Int, CaseIterable {
         case .openTime: return UITableView.automaticDimension
         case .address: return UITableView.automaticDimension
         case .tel: return UITableView.automaticDimension
+        case .url: return UITableView.automaticDimension
         case .introduction: return UITableView.automaticDimension
         }
     }
@@ -105,7 +107,7 @@ extension AttractionViewController {
 extension AttractionViewController {
 
     private func configNavBar() {
-        self.navigationItem.title = self.viewModel.currentLanguage.attraction
+        self.navigationItem.title = self.viewModel.name
     }
 
     private func configUI() {
@@ -151,6 +153,10 @@ extension AttractionViewController: UITableViewDataSource, UITableViewDelegate {
             let cell: AttractionTelTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.update(with: self.viewModel.tel)
             return cell
+        case .url:
+            let cell: AttractionUrlTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.update(with: self.viewModel.urlString)
+            return cell
         case .introduction:
             let cell: AttractionIntroTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.update(with: self.viewModel.intro)
@@ -160,5 +166,12 @@ extension AttractionViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        let cellType = AttractionCellType.allCases[indexPath.row]
+
+        if cellType == .url {
+            let viewModel = AttractionWebViewModel(attraction: self.viewModel.attraction)
+            let vc = AttractionWebViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

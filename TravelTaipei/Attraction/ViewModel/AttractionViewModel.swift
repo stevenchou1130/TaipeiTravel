@@ -9,7 +9,7 @@ import Foundation
 
 class AttractionViewModel {
 
-    private var attraction: Attraction
+    private(set) var attraction: Attraction
 
     var currentLanguage: Language {
         if let langCode = UserDefaults.standard.string(forKey: Constants.LanguageKey) {
@@ -17,6 +17,10 @@ class AttractionViewModel {
         } else {
             return .zhTW
         }
+    }
+
+    var name: String {
+        return self.attraction.name
     }
 
     var images: [Image] {
@@ -40,6 +44,11 @@ class AttractionViewModel {
 
     var intro: String {
         return self.attraction.introduction
+    }
+
+    var urlString: String {
+        let title = self.currentLanguage.url
+        return "\(title): \(self.attraction.url)"
     }
 
     init(attraction: Attraction) {

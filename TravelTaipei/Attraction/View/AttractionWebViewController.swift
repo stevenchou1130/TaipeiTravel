@@ -1,8 +1,8 @@
 //
-//  NewsViewController.swift
+//  AttractionWebViewController.swift
 //  TravelTaipei
 //
-//  Created by Steven on 2025/2/10.
+//  Created by Steven on 2025/2/11.
 //
 
 import UIKit
@@ -10,10 +10,10 @@ import WebKit
 import SnapKit
 import NVActivityIndicatorView
 
-class NewsViewController: UIViewController {
+class AttractionWebViewController: UIViewController {
 
     // MARK: - Property
-    let viewModel: NewsViewModel
+    let viewModel: AttractionWebViewModel
 
     // MARK: - UI Content
     lazy var webView: WKWebView = {
@@ -29,9 +29,8 @@ class NewsViewController: UIViewController {
     }()
 
     // MARK: - Initialization
-    init(viewModel: NewsViewModel) {
+    init(viewModel: AttractionWebViewModel) {
         self.viewModel = viewModel
-
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -54,8 +53,8 @@ class NewsViewController: UIViewController {
 }
 
 // MARK: - Action
-extension NewsViewController {
-    
+extension AttractionWebViewController {
+
     private func load() {
         if let url = self.viewModel.url {
             self.webView.load(URLRequest(url: url))
@@ -73,15 +72,15 @@ extension NewsViewController {
 }
 
 // MARK: - Public
-extension NewsViewController {
+extension AttractionWebViewController {
 
 }
 
 // MARK: - Private
-extension NewsViewController {
+extension AttractionWebViewController {
 
     private func configNavBar() {
-        self.navigationItem.title = self.viewModel.currentLanguage.news
+        self.navigationItem.title = self.viewModel.name
     }
 
     private func configUI() {
@@ -100,7 +99,7 @@ extension NewsViewController {
 }
 
 // MARK: - WKNavigationDelegate
-extension NewsViewController: WKNavigationDelegate {
+extension AttractionWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         self.indicator.startAnimating()
     }
