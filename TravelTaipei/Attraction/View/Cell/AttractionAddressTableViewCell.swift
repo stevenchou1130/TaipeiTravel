@@ -1,5 +1,5 @@
 //
-//  AttractionOpenTimeTableViewCell.swift
+//  AttractionAddressTableViewCell.swift
 //  TravelTaipei
 //
 //  Created by Steven on 2025/2/11.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class AttractionOpenTimeTableViewCell: UITableViewCell {
+class AttractionAddressTableViewCell: UITableViewCell {
 
     // MARK: - Property
 
     // MARK: - UI Content
-    lazy var openTimeLabel: UILabel = {
+    lazy var addressLabel: UILabel = {
         let label = UILabel()
-        label.text = "營業時間"
-        label.textColor = .black
+        label.text = "地址"
+        label.textColor = .lmMainColor
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0
         return label
@@ -43,28 +43,28 @@ class AttractionOpenTimeTableViewCell: UITableViewCell {
 }
 
 // MARK: - Action
-extension AttractionOpenTimeTableViewCell {
+extension AttractionAddressTableViewCell {
 
 }
 
 // MARK: - Public
-extension AttractionOpenTimeTableViewCell {
+extension AttractionAddressTableViewCell {
 
-    func update(with openTime: String) {
-        self.openTimeLabel.text = openTime
-        self.openTimeLabel.sizeToFit()
+    func update(with address: String) {
+        self.addressLabel.text = address
+        self.addressLabel.sizeToFit()
     }
 }
 
 // MARK: - Private
-extension AttractionOpenTimeTableViewCell {
+extension AttractionAddressTableViewCell {
 
     private func configUI() {
         // TODO: Dark mode
         self.contentView.backgroundColor = .white
 
-        self.contentView.addSubview(self.openTimeLabel)
-        self.openTimeLabel.snp.makeConstraints { make in
+        self.contentView.addSubview(self.addressLabel)
+        self.addressLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(12)
         }
     }

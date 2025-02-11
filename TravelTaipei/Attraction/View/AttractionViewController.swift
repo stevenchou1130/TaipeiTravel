@@ -13,7 +13,7 @@ import SnapKit
 enum AttractionCellType: Int, CaseIterable {
     case images
     case openTime
-//    case address
+    case address
 //    case tel
 //    case url
 //    case introduction
@@ -22,6 +22,7 @@ enum AttractionCellType: Int, CaseIterable {
         switch self {
         case .images: return AttractionImagesTableViewCell.self
         case .openTime: return AttractionOpenTimeTableViewCell.self
+        case .address: return AttractionAddressTableViewCell.self
         }
     }
 
@@ -29,13 +30,15 @@ enum AttractionCellType: Int, CaseIterable {
         switch self {
         case .images: return AttractionImagesTableViewCell.reuseCellID
         case .openTime: return AttractionOpenTimeTableViewCell.reuseCellID
+        case .address: return AttractionAddressTableViewCell.reuseCellID
         }
     }
 
     var cellHeight: CGFloat {
         switch self {
         case .images: return 300
-        case .openTime: return 50
+        case .openTime: return UITableView.automaticDimension
+        case .address: return UITableView.automaticDimension
         }
     }
 }
@@ -133,6 +136,10 @@ extension AttractionViewController: UITableViewDataSource, UITableViewDelegate {
         case .openTime:
             let cell: AttractionOpenTimeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.update(with: self.viewModel.openTime)
+            return cell
+        case .address:
+            let cell: AttractionAddressTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.update(with: self.viewModel.address)
             return cell
         }
     }

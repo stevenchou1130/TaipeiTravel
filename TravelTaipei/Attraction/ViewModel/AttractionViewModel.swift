@@ -28,6 +28,11 @@ class AttractionViewModel {
         return "\(title): \(self.attraction.openTime)"
     }
 
+    var address: String {
+        let title = self.currentLanguage.address
+        return "\(title): \(self.attraction.address)"
+    }
+
     init(attraction: Attraction) {
         self.attraction = attraction
     }
