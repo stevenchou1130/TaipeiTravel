@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: 轉向照片跑掉
 class AttractionImagesTableViewCell: UITableViewCell {
 
     // MARK: - Property
@@ -16,6 +17,7 @@ class AttractionImagesTableViewCell: UITableViewCell {
     // MARK: - UI Content
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView(frame: .zero)
+        sv.backgroundColor = .lightGray
         sv.delegate = self
         sv.isPagingEnabled = true
         sv.bounces = false

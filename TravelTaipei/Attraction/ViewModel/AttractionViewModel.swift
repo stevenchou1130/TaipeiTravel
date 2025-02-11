@@ -38,6 +38,10 @@ class AttractionViewModel {
         return "\(title): \(self.attraction.tel)"
     }
 
+    var intro: String {
+        return self.attraction.introduction
+    }
+
     init(attraction: Attraction) {
         self.attraction = attraction
     }
