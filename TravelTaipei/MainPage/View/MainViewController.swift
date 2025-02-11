@@ -19,9 +19,7 @@ class MainViewController: UIViewController {
 
     // MARK: - UI Content
     lazy var selectionBtnsView: UIView = {
-        let v = UIView(frame: .zero)
-        v.backgroundColor = .clear
-        return v
+        return UIView(frame: .zero)
     }()
 
     lazy var attractionsBtn: UIButton = {
@@ -213,6 +211,7 @@ extension MainViewController {
     }
 
     private func configUI() {
+        self.view.backgroundColor = .systemBackground
 
         self.view.addSubview(self.selectionBtnsView)
         self.selectionBtnsView.snp.makeConstraints { make in

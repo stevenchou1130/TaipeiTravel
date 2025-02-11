@@ -84,6 +84,8 @@ extension AttractionWebViewController {
     }
 
     private func configUI() {
+        self.view.backgroundColor = .systemBackground
+        
         self.view.addSubview(self.webView)
         self.webView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
